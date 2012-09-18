@@ -20,5 +20,14 @@ int main(int argc, char *argv[])
        i++;
    }
 
+   if(0)
+   {
+       printf("WTF");
+   }
+   if(1)
+   {
+       printf("WTH\n");
+   }
+
    return 0;
 }
