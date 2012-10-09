@@ -14,6 +14,25 @@ int main(int argc, char *argv[])
     *ptr = 70;
     printf("b is %d\n", b);
 
+    int *ptr2 = &a;
+    printf("ptr1 -> %p\n", ptr);
+    printf("ptr2 -> %p\n", ptr2);
+    printf("Address at ptr1 has value %d\n", *ptr);
+    printf("Address at ptr2 has value %d\n", *ptr2);
+
+    ptr2 = ptr;
+    printf("ptr1 -> %p\n", ptr);
+    printf("ptr2 -> %p\n", ptr2);
+    printf("Address at ptr1 has value %d\n", *ptr);
+    printf("Address at ptr2 has value %d\n", *ptr2);
+
+    printf("a is %d\n", a);
+    printf("b is %d\n", b);
+    *ptr2 = 100;
+    printf("a is %d\n", a);
+    printf("b is %d\n", b);
+
+
     int my_array[] = {1, 5, 9, -6, 10};
     int *arr_ptr = &my_array[0];
     int i = 0;
