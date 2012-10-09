@@ -1,5 +1,15 @@
 #include <stdio.h>
 
+
+void copy(char *destination, char *source)
+{
+    while(*source != '\0')
+    {
+        *destination++ = *source++;
+    }
+    *destination = '\0';
+}
+
 int main(int argc, char *argv[])
 {
     char first[] = "Hello World!";
@@ -19,5 +29,11 @@ int main(int argc, char *argv[])
     }
     *sp = '\0';
     printf("Second is %s\n", second);
+
+    char third[] = "akshar raaj";
+    char fourth[20];
+    copy(fourth, third);
+    printf("Fourth is %s\n", fourth);
+
     return 0;
 }
