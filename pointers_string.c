@@ -17,15 +17,11 @@ void strcat_impl(char *str1, char *str2)
     char *ptr = arr;
     while(*str1 != '\0')
     {
-        *ptr = *str1;
-        str1++;
-        ptr++;
+        *ptr++ = *str1++;
     }
     while(*str2 != '\0')
     {
-        *ptr = *str2;
-        str2++;
-        ptr++;
+        *ptr++ = *str2++;
     }
     *ptr = '\0';
     printf("concatenated string is %s\n", arr);
@@ -38,7 +34,6 @@ int main(int argc, char *argv[])
     printf("Length of akshar is %d\n", len);
     len = strlen_impl("");
     printf("Length of is %d\n", len);
-
     strcat_impl("akshar", "raaj");
     return 0;
 }
