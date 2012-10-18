@@ -43,6 +43,18 @@ int strchr_impl(char *str, char c)
     }
     return is_found;
 }
+
+char *strdup_impl(char *str)
+{
+    char arr[100]; 
+    char *arr_ptr = arr;
+    while(*str!='\0')
+    {
+        *arr_ptr++ = *str++; 
+    }
+    *arr_ptr = '\0';
+    return arr;
+}
 int main(int argc, char *argv[])
 {
     int len = strlen_impl("abc");
@@ -59,5 +71,7 @@ int main(int argc, char *argv[])
     found = strchr_impl("akshar", 'b');
     printf("Found at %d\n", found);
 
+    char *dupl = strdup_impl("akshar");
+    printf("Duplicated string %s\n", dupl);
     return 0;
 }
