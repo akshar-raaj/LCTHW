@@ -30,10 +30,24 @@ void Person_print(struct Person *who)
     printf("\tWeight is %d\n", who->weight);
 }
 
+void Person_destroy(struct Person *who)
+{
+    assert(who!=NULL);
+    free(who->name);
+    free(who);
+}
+
 int main(int argc, char *argv[])
 {
     struct Person *akshar = Person_create("Akshar Raaj", 22, 165, 55);
+
+    printf("akshar is at memory location %p\n", akshar);
+
     Person_print(akshar);
 
+    struct Person real_akshar = *akshar;
+    printf("Name is %s\n", real_akshar.name);
+
+    Person_destroy(akshar);
     return 0;
 }
