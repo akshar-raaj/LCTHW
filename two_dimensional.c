@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     printf("Value at 1,2 is %d\n", *(ptr+5));
 
     int *ptr1 = arr[0];
+    printf("address of arr is %p\n", ptr1);
     printf("arr0 refers to %d\n", *ptr1);
     
     int *ptr2 = arr[1];
