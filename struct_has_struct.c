@@ -49,5 +49,30 @@ int main(int argc, char *argv[])
 
     struct Employee *employee = Employee_create(person, 20000);
     Employee_print(employee);
+
+    struct Person person_array[2];
+    struct Person *p1 = Person_create(12);
+    struct Person *p2 = Person_create(14);
+    person_array[0] = *p1;
+    person_array[1] = *p2;
+
+    struct Person pp;
+    int i;
+    for(i=0; i<2; i++)
+    {
+        pp = person_array[i]; 
+        printf("Person's age is %d\n", pp.age);
+    }
+
+    struct Person *person_pointer_array[2];
+    person_pointer_array[0] = p1;
+    person_pointer_array[1] = p2;
+
+    printf("Using an array of pointers\n");
+    for(i=0; i<2; i++)
+    {
+        printf("Person'age is %d\n", person_pointer_array[i]->age);
+    }
+
     return 0;
 }
