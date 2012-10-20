@@ -132,6 +132,12 @@ void Database_list(struct Connection *conn)
     }
 }
 
+void Database_delete(struct Connection *conn, int id)
+{
+    struct Address addr = {.id=0, .set=0};
+    conn->db->rows[id] = addr;
+}
+
 int main(int argc, char *argv[])
 {
     if(argc<3)
@@ -155,6 +161,15 @@ int main(int argc, char *argv[])
             }
             Database_load(conn);
             Database_get(conn, atoi(argv[3]));
+            break;
+        case 'd':
+            if(argc!=4)
+            {
+                die("Usage: ./ex17 <filename> d <id>");
+            }
+            Database_load(conn);
+            Database_delete(conn, atoi(argv[3]));
+            Database_write(conn);
             break;
         case 's':
             if(argc!=6)
