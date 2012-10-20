@@ -138,6 +138,19 @@ void Database_delete(struct Connection *conn, int id)
     conn->db->rows[id] = addr;
 }
 
+void Database_close(struct Connection *conn)
+{
+    if(conn->file)
+    {
+        fclose(conn->file);
+    }
+    if(conn->db)
+    {
+        free(conn->db);
+        free(conn);
+    }
+}
+
 int main(int argc, char *argv[])
 {
     if(argc<3)
@@ -186,5 +199,6 @@ int main(int argc, char *argv[])
             break;
     }
 
+    Database_close(conn);
     return 0;
 }
