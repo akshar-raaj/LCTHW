@@ -76,5 +76,6 @@ int main(int argc, char *argv[])
     }
 
     Person_print(person);
+    free(person);
     return 0;
 }
