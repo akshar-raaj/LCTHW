@@ -118,6 +118,20 @@ void Database_set(struct Connection *conn, int id, char *name, char *email)
     }
 }
 
+void Database_list(struct Connection *conn)
+{
+    int i = 0;
+    struct Address *address;
+    for(i=0; i<MAX_ROWS; i++)
+    {
+        address = &conn->db->rows[i];
+        if(address->set)
+        {
+            Address_print(address);
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     if(argc<3)
@@ -150,6 +164,10 @@ int main(int argc, char *argv[])
             Database_load(conn);
             Database_set(conn, atoi(argv[3]), argv[4], argv[5]);
             Database_write(conn);
+            break;
+        case 'l':
+            Database_load(conn);
+            Database_list(conn);
             break;
     }
 
