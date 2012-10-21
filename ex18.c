@@ -17,6 +17,29 @@ void die(char *message)
     exit(1);
 }
 
+int *bubble_sort(int *numbers, int count)
+{
+    int *copy = malloc(count * sizeof(int));
+    memcpy(copy, numbers, count * sizeof(int));
+    int i;
+    int j;
+    int temp;
+
+    for(i=0; i<count; i++)
+    {
+        for(j=0; j<count-1; j++)
+        {
+            if(copy[j]>copy[j+1])
+            {
+                temp = copy[j];
+                copy[j] = copy[j+1];
+                copy[j+1] = temp;
+            }
+        }
+    }
+    return copy;
+}
+
 int main(int argc, char *argv[])
 {
     if(argc<2)
@@ -39,6 +62,15 @@ int main(int argc, char *argv[])
         printf("Number is %d\n", numbers[i]);
     }
 
+    int *copy = bubble_sort(numbers, count);
+
+    printf("Numbers after sorting\n");
+    for(i=0; i<count; i++)
+    {
+        printf("Number is %d\n", copy[i]);
+    }
+
     free(numbers);
+    free(copy);
     return 0;
 }
