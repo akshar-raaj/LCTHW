@@ -4,6 +4,18 @@
 #include <string.h>
 #include <errno.h>
 
+typedef int (*compare)(int a, int b);
+
+int ascending_order(int a, int b)
+{
+    return a-b;
+}
+
+int descending_order(int a, int b)
+{
+    return b-a;
+}
+
 void die(char *message)
 {
     if(errno)
@@ -17,7 +29,7 @@ void die(char *message)
     exit(1);
 }
 
-int *bubble_sort(int *numbers, int count)
+int *bubble_sort(int *numbers, int count, compare cmp)
 {
     int *copy = malloc(count * sizeof(int));
     memcpy(copy, numbers, count * sizeof(int));
@@ -31,7 +43,7 @@ int *bubble_sort(int *numbers, int count)
         is_sorted = 1;
         for(j=0; j<count-1-i; j++)
         {
-            if(copy[j]>copy[j+1])
+            if(cmp(copy[j], copy[j+1]) > 0)
             {
                 is_sorted = 0;
                 temp = copy[j];
@@ -64,14 +76,23 @@ int main(int argc, char *argv[])
         numbers[i-1] = atoi(argv[i]);
     }
 
+    printf("Original numbers:\n");
     for(i=0; i<count; i++)
     {
         printf("Number is %d\n", numbers[i]);
     }
 
-    int *copy = bubble_sort(numbers, count);
+    int *copy = bubble_sort(numbers, count, ascending_order);
 
-    printf("Numbers after sorting\n");
+    printf("\nNumbers after sorting:\n");
+    for(i=0; i<count; i++)
+    {
+        printf("Number is %d\n", copy[i]);
+    }
+
+    copy = bubble_sort(numbers, count, descending_order);
+
+    printf("\nNumbers after reverse sorting:\n");
     for(i=0; i<count; i++)
     {
         printf("Number is %d\n", copy[i]);
