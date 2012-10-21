@@ -24,17 +24,24 @@ int *bubble_sort(int *numbers, int count)
     int i;
     int j;
     int temp;
+    int is_sorted;
 
     for(i=0; i<count; i++)
     {
+        is_sorted = 1;
         for(j=0; j<count-1; j++)
         {
             if(copy[j]>copy[j+1])
             {
+                is_sorted = 0;
                 temp = copy[j];
                 copy[j] = copy[j+1];
                 copy[j+1] = temp;
             }
+        }
+        if(is_sorted)
+        {
+            break;
         }
     }
     return copy;
