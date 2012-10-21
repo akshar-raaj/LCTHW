@@ -29,7 +29,7 @@ int *bubble_sort(int *numbers, int count)
     for(i=0; i<count; i++)
     {
         is_sorted = 1;
-        for(j=0; j<count-1; j++)
+        for(j=0; j<count-1-i; j++)
         {
             if(copy[j]>copy[j+1])
             {
