@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "function1.h"
 
 typedef void (*increase)(int number);
 
@@ -43,8 +44,9 @@ int main(int argc, char *argv[])
     *ptr = 20;
     printf("a is %d\n", a);*/
 
-    use_increase(5, increase_1);
-    use_increase(5, increase_2);
+    //use_increase(5, increase_1);
+    //use_increase(5, increase_2);
 
+    increment(13);
     return 0;
 }
