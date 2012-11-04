@@ -60,6 +60,40 @@ void append(LinkedList *list, Item *item)
     last_item->next = item;
 }
 
+char *pop(LinkedList *list)
+{
+    char *data;
+    Item *first = list->first;
+
+    if(first==NULL)
+    {
+        printf("List is empty\n");
+        return NULL;
+    }
+
+    if(first->next==NULL)
+    {
+        data = first->data;
+        free(first);
+        list->first = NULL;
+        return data;
+    }
+
+    Item *last_item;
+    Item *second_last;
+    second_last = first;
+    last_item = first->next;
+    while(last_item->next!=NULL)
+    {
+        second_last = last_item;
+        last_item = last_item->next;
+    }
+    data = last_item->data;
+    free(last_item);
+    second_last->next = NULL;
+    return data;
+}
+
 void LinkedList_print(LinkedList *list)
 {
     if(list==NULL)
@@ -70,7 +104,7 @@ void LinkedList_print(LinkedList *list)
     Item *first = list->first;
     if(first==NULL)
     {
-        printf("Empty list");
+        printf("Empty list\n");
         return;
     }
 
@@ -83,10 +117,24 @@ void LinkedList_print(LinkedList *list)
     printf("%s\n", last_item->data);
 }
 
+void print_popped(char *popped)
+{
+    if(popped==NULL)
+    {
+        return;
+    }
+    printf("Popped element is %s\n", popped);
+}
+
 int main(int argc, char *argv[])
 {
     LinkedList *list = LinkedList_create();
+
     Item *item;
+    char *popped;
+
+    popped = pop(list);
+    print_popped(popped);
 
     item = Item_create("akshar");
     append(list, item);
@@ -97,6 +145,22 @@ int main(int argc, char *argv[])
     item = Item_create("shloka");
     append(list, item);
 
+    popped = pop(list);
+    print_popped(popped);
+
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
+
+    popped = pop(list);
+    print_popped(popped);
+
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
+
+    popped = pop(list);
+    print_popped(popped);
+
+    printf("Printing list.............................\n");
     LinkedList_print(list);
     return 0;
 }
