@@ -94,6 +94,30 @@ char *pop(LinkedList *list)
     return data;
 }
 
+int LinkedList_count(LinkedList *list)
+{
+    Item *first = list->first;
+    int count = 0;
+    if(first==NULL)
+    {
+        return count;
+    }
+    count = 1;
+    Item *last = first;
+    while(last->next!=NULL)
+    {
+        count++; 
+        last = last->next;
+    }
+    return count;
+}
+
+void LinkedList_insert(int index, Item *item)
+{
+    int i = 0;
+    //for(i=0; i<index; i++)
+}
+
 void LinkedList_print(LinkedList *list)
 {
     if(list==NULL)
@@ -132,9 +156,10 @@ int main(int argc, char *argv[])
 
     Item *item;
     char *popped;
+    int count;
 
-    popped = pop(list);
-    print_popped(popped);
+    count = LinkedList_count(list);
+    printf("Number of elements in list is %d.\n", count);
 
     item = Item_create("akshar");
     append(list, item);
@@ -145,22 +170,15 @@ int main(int argc, char *argv[])
     item = Item_create("shloka");
     append(list, item);
 
-    popped = pop(list);
-    print_popped(popped);
-
     printf("Printing list.............................\n");
     LinkedList_print(list);
+    count = LinkedList_count(list);
+    printf("Number of elements in list is %d.\n", count);
 
-    popped = pop(list);
-    print_popped(popped);
-
+    pop(list);
     printf("Printing list.............................\n");
     LinkedList_print(list);
-
-    popped = pop(list);
-    print_popped(popped);
-
-    printf("Printing list.............................\n");
-    LinkedList_print(list);
+    count = LinkedList_count(list);
+    printf("Number of elements in list is %d.\n", count);
     return 0;
 }
