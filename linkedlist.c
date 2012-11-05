@@ -130,6 +130,7 @@ void LinkedList_insert(LinkedList *list, int index, Item *item)
     if(index>=count)
     {
         LinkedList_append(list, item);
+        return;
     }
 
     if(index==0)
@@ -137,13 +138,18 @@ void LinkedList_insert(LinkedList *list, int index, Item *item)
         Item *first = list->first;
         list->first = item;
         item->next = first;
+        return;
     }
 
-    /*Item *before = list->first;
-    for(i=0; i<index; i++)
+    Item *before = list->first;
+    Item *after = before->next;
+    for(i=0; i<index-1; i++)
     {
-        current = current->next; 
-    }*/
+        before = after;
+        after = after->next;
+    }
+    before->next = item;
+    item->next = after;
 }
 
 void LinkedList_print(LinkedList *list)
@@ -185,16 +191,29 @@ int main(int argc, char *argv[])
     Item *item;
     item = Item_create("akshar");
 
+    //This will insert item at position 0
     LinkedList_insert(list, 5, item);
+    //List is ["akshar"]
 
     item = Item_create("shabda");
     LinkedList_append(list, item);
+    //List is ["akshar", "shabda"]
 
     item = Item_create("shloka");
     LinkedList_append(list, item);
+    //List is ["akshar", "shabda", "shloka"]
 
     item = Item_create("theju");
     LinkedList_insert(list, 0, item);
+    //List is ["theju", "akshar", "shabda", "shloka"]
+
+    item = Item_create("jakh");
+    LinkedList_insert(list, 2, item);
+    //List is ["theju", "akshar", "jakh", "shabda", "shloka"]
+
+    item = Item_create("foo");
+    LinkedList_insert(list, 110, item);
+    //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo"]
 
     printf("Printing list.............................\n");
     LinkedList_print(list);
