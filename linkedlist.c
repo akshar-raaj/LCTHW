@@ -112,6 +112,32 @@ int LinkedList_count(LinkedList *list)
     return count;
 }
 
+int LinkedList_count_item(LinkedList *list, char *data){
+    Item *current = list->first;
+    char *item_data;
+    int eq;
+    int count = 0;
+    if(current==NULL)
+    {
+        return count;
+    }
+    while(current->next!=NULL)
+    {
+        item_data = current->data; 
+        eq = strcmp(data, item_data);
+        if(eq==0)
+        {
+            count++;
+        }
+        current = current->next;
+    }
+    if(strcmp(data, current->data)==0)
+    {
+        count++;
+    }
+    return count;
+}
+
 void LinkedList_insert(LinkedList *list, int index, Item *item)
 {
     if(list==NULL)
@@ -222,8 +248,16 @@ int main(int argc, char *argv[])
     //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo"]
 
     append(list, "bar");
+    //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo", "bar"]
+
+    insert(list, 110, "foo");
+    //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo", "bar", "foo"]
 
     printf("Printing list.............................\n");
     LinkedList_print(list);
+
+    printf("akshar occurs %d times.\n", LinkedList_count_item(list, "akshar"));
+    printf("foo occurs %d times.\n", LinkedList_count_item(list, "foo"));
+    printf("abc occurs %d times.\n", LinkedList_count_item(list, "abc"));
     return 0;
 }
