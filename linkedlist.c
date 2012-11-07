@@ -112,7 +112,7 @@ int LinkedList_count(LinkedList *list)
     return count;
 }
 
-int LinkedList_count_item(LinkedList *list, char *data){
+int count(LinkedList *list, char *data){
     Item *current = list->first;
     char *item_data;
     int eq;
@@ -178,6 +178,24 @@ void LinkedList_insert(LinkedList *list, int index, Item *item)
     item->next = after;
 }
 
+void LinkedList_extend(LinkedList *list1, LinkedList *list2)
+{
+    Item *current = list1->first;
+    if(current==NULL)
+    {
+        list1->first = list2->first;
+    }
+    else
+    {
+        while(current->next!=NULL)
+        {
+            current = current->next;
+        }
+        Item *list2_first = list2->first;
+        current->next = list2_first;
+    }
+}
+
 void LinkedList_print(LinkedList *list)
 {
     if(list==NULL)
@@ -224,6 +242,11 @@ void insert(LinkedList *list, int index, char *data)
     LinkedList_insert(list, index, item);
 }
 
+void extend(LinkedList *list1, LinkedList *list2)
+{
+    LinkedList_extend(list1, list2);
+}
+
 int main(int argc, char *argv[])
 {
     LinkedList *list = LinkedList_create();
@@ -253,11 +276,23 @@ int main(int argc, char *argv[])
     insert(list, 110, "foo");
     //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo", "bar", "foo"]
 
+    //printf("Printing list.............................\n");
+    //LinkedList_print(list);
+
+    printf("akshar occurs %d times.\n", count(list, "akshar"));
+    printf("foo occurs %d times.\n", count(list, "foo"));
+    printf("abc occurs %d times.\n", count(list, "abc"));
+
+    LinkedList *list1 = LinkedList_create();
+
+    LinkedList *list2 = LinkedList_create();
+    append(list2, "nguyen");
+    append(list2, "hai");
+
+    extend(list, list2);
+
     printf("Printing list.............................\n");
     LinkedList_print(list);
 
-    printf("akshar occurs %d times.\n", LinkedList_count_item(list, "akshar"));
-    printf("foo occurs %d times.\n", LinkedList_count_item(list, "foo"));
-    printf("abc occurs %d times.\n", LinkedList_count_item(list, "abc"));
     return 0;
 }
