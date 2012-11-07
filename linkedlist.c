@@ -184,36 +184,44 @@ void print_popped(char *popped)
     printf("Popped element is %s\n", popped);
 }
 
+void append(LinkedList *list, char *data)
+{
+    char *duplicate = strdup(data);
+    Item *item = Item_create(duplicate);
+    LinkedList_append(list, item);
+}
+
+void insert(LinkedList *list, int index, char *data)
+{
+    char *duplicate = strdup(data);
+    Item *item = Item_create(duplicate);
+    LinkedList_insert(list, index, item);
+}
+
 int main(int argc, char *argv[])
 {
     LinkedList *list = LinkedList_create();
 
-    Item *item;
-    item = Item_create("akshar");
-
     //This will insert item at position 0
-    LinkedList_insert(list, 5, item);
+    insert(list, 5, "akshar");
     //List is ["akshar"]
 
-    item = Item_create("shabda");
-    LinkedList_append(list, item);
+    append(list, "shabda");
     //List is ["akshar", "shabda"]
 
-    item = Item_create("shloka");
-    LinkedList_append(list, item);
+    append(list, "shloka");
     //List is ["akshar", "shabda", "shloka"]
 
-    item = Item_create("theju");
-    LinkedList_insert(list, 0, item);
+    insert(list, 0, "theju");
     //List is ["theju", "akshar", "shabda", "shloka"]
 
-    item = Item_create("jakh");
-    LinkedList_insert(list, 2, item);
+    insert(list, 2, "jakh");
     //List is ["theju", "akshar", "jakh", "shabda", "shloka"]
 
-    item = Item_create("foo");
-    LinkedList_insert(list, 110, item);
+    insert(list, 110, "foo");
     //List is ["theju", "akshar", "jakh", "shabda", "shloka", "foo"]
+
+    append(list, "bar");
 
     printf("Printing list.............................\n");
     LinkedList_print(list);
