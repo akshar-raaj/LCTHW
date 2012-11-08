@@ -196,6 +196,31 @@ void LinkedList_extend(LinkedList *list1, LinkedList *list2)
     }
 }
 
+int LinkedList_index(LinkedList *list, char *data)
+{
+    int index = -1;
+    Item *first = list->first;
+    if(first==NULL)
+    {
+        return index; 
+    }
+    while(first->next!=NULL)
+    {
+        index++;
+        if(strcmp(first->data, data)==0)
+        {
+            return index;
+        }
+        first = first->next;
+    }
+    index++;
+    if(strcmp(first->data, data)==0)
+    {
+        return index;
+    }
+    return -1;
+}
+
 void LinkedList_print(LinkedList *list)
 {
     if(list==NULL)
@@ -247,6 +272,12 @@ void extend(LinkedList *list1, LinkedList *list2)
     LinkedList_extend(list1, list2);
 }
 
+int index_of(LinkedList *list, char *data)
+{
+    int index = LinkedList_index(list, data);
+    return index;
+}
+
 int main(int argc, char *argv[])
 {
     LinkedList *list = LinkedList_create();
@@ -293,6 +324,10 @@ int main(int argc, char *argv[])
 
     printf("Printing list.............................\n");
     LinkedList_print(list);
+
+    printf("Index of akshar is %d\n", index_of(list, "akshar"));
+    printf("Index of abcd is %d\n", index_of(list, "abcd"));
+    printf("Index of hai is %d\n", index_of(list, "hai"));
 
     return 0;
 }
