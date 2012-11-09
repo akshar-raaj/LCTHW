@@ -221,6 +221,44 @@ int LinkedList_index(LinkedList *list, char *data)
     return -1;
 }
 
+int LinkedList_remove(LinkedList *list, char *data)
+{
+    Item *first = list->first;
+    Item *to_remove;
+    Item *previous;
+    int removed = -1;
+    if(first==NULL)
+    {
+        printf("%s not in list.\n", data);
+        return removed;
+    }
+    to_remove = first;
+
+    //If removing the first element
+    if(strcmp(to_remove->data, data)==0)
+    {
+        removed = 1;
+        list->first = to_remove->next;
+        free(to_remove);
+        return removed;
+    }
+    previous = to_remove;
+    to_remove = to_remove->next;
+    while(to_remove!=NULL)
+    {
+        removed++;
+        if(strcmp(to_remove->data, data)==0)
+        {
+            previous->next = to_remove->next;
+            free(to_remove);
+            return removed;
+        }
+        previous = to_remove;
+        to_remove = to_remove->next;
+    }
+    return -1;
+}
+
 void LinkedList_print(LinkedList *list)
 {
     if(list==NULL)
@@ -278,6 +316,12 @@ int index_of(LinkedList *list, char *data)
     return index;
 }
 
+int remove_it(LinkedList *list, char *data)
+{
+    int removed = LinkedList_remove(list, data);
+    return removed;
+}
+
 int main(int argc, char *argv[])
 {
     LinkedList *list = LinkedList_create();
@@ -329,5 +373,23 @@ int main(int argc, char *argv[])
     printf("Index of abcd is %d\n", index_of(list, "abcd"));
     printf("Index of hai is %d\n", index_of(list, "hai"));
 
+    remove_it(list, "theju");
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
+
+    //Remove from middle of list
+    remove_it(list, "jakh");
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
+
+    //Try removing non-existing entry
+    remove_it(list, "abcd");
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
+
+    //Remove from end of list
+    remove_it(list, "hai");
+    printf("Printing list.............................\n");
+    LinkedList_print(list);
     return 0;
 }
