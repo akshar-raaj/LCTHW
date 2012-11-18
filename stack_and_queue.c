@@ -57,14 +57,34 @@ void List_push(List *list, Node *node)
     list->last = node;
 }
 
+int List_check_empty(List *list)
+{
+    if(list->first==NULL && list->last==NULL)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 char *stack_pop(List *list)
 {
-    Node *node = list->last;
-    if(node==NULL)
+    if(List_check_empty(list)==1)
     {
-        //Its an empty list. So no manipulation required on list.
-        return node;
+        return NULL;
     }
+    Node *last = list->last;
+    Node *previous = last->previous;
+    list->last = previous;
+    if(previous==NULL)
+    {
+        //If only one element was there in the list.
+        //Then previous will be null.
+        list->first = NULL;
+    }
+    char *another = strdup(last->data);
+    free(last->data);
+    free(last);
+    return another;
 }
 
 Node *Node_create(char *data)
@@ -89,11 +109,39 @@ void push(List *list, char *data)
     List_push(list, node);
 }
 
+void print_popped(char *item, char *ds)
+{
+    if(item==NULL)
+    {
+        printf("%s seems to be empty as no item was popped.\n", ds);
+        return;
+    }
+    printf("Popped item from %s is %s.\n", ds, item);
+}
+
 int main(int argc, char *argv[])
 {
-    List *list = List_create();
-    push(list, "akshar");
-    push(list, "shabda");
-    List_print(list);
+    //Stack use follows
+    List *stack = List_create();
+
+    push(stack, "akshar");
+    push(stack, "shabda");
+
+    List_print(stack);
+
+    char *popped;
+
+    popped = stack_pop(stack);
+    print_popped(popped, "Stack");
+    popped = stack_pop(stack);
+    print_popped(popped, "Stack");
+    popped = stack_pop(stack);
+    print_popped(popped, "Stack");
+
+    push(stack, "shloka");
+    popped = stack_pop(stack);
+    print_popped(popped, "Stack");
+    //Done with stack
+
     return 0;
 }
