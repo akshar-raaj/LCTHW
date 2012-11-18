@@ -24,6 +24,8 @@ void die(char *message)
 List *List_create()
 {
     List *list = malloc(sizeof(List));
+    list->first = NULL;
+    list->last = NULL;
     return list;
 }
 
@@ -87,6 +89,25 @@ char *stack_pop(List *list)
     return another;
 }
 
+char *queue_pop(List *list)
+{
+    if(List_check_empty(list)==1)
+    {
+        return NULL;
+    }
+    Node *first = list->first;
+    Node *next = first->next;
+    list->first = next;
+    if(next==NULL)
+    {
+        list->last = NULL;
+    }
+    char *another = strdup(first->data);
+    free(first->data);
+    free(first);
+    return another;
+}
+
 Node *Node_create(char *data)
 {
     char *another = strdup(data);
@@ -122,6 +143,7 @@ void print_popped(char *item, char *ds)
 int main(int argc, char *argv[])
 {
     //Stack use follows
+    printf("Stack operations.......................................\n");
     List *stack = List_create();
 
     push(stack, "akshar");
@@ -142,6 +164,25 @@ int main(int argc, char *argv[])
     popped = stack_pop(stack);
     print_popped(popped, "Stack");
     //Done with stack
+    
+    printf("\nQueue operations........................................\n");
+    List *queue = List_create();
+
+    push(queue, "shloka");
+    push(queue, "varsha");
+
+    List_print(queue);
+
+    popped = queue_pop(queue);
+    print_popped(popped, "Queue");
+    popped = queue_pop(queue);
+    print_popped(popped, "Queue");
+    popped = queue_pop(queue);
+    print_popped(popped, "Queue");
+
+    push(queue, "puje");
+    popped = queue_pop(queue);
+    print_popped(popped, "Queue");
 
     return 0;
 }
