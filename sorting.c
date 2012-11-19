@@ -145,15 +145,98 @@ void bubble_sort(List *list)
     List_print(list);
 }
 
+List *concatenate(List *lesser, Node *pivot, List *greater)
+{
+    Node *lesser_last = lesser->last;
+    //Appending lesser's last to pivot
+    if(lesser_last==NULL)
+    {
+        lesser->first = pivot;
+        lesser->last = pivot;
+    }
+    else
+    {
+        lesser_last->next = pivot;
+        lesser->last = pivot;
+        pivot->previous = lesser_last;
+    }
+
+    //lesser and last are already joined here.
+    //Need to join greater to them
+    lesser_last = lesser->last;
+    Node *greater_first = greater->first;
+    if(greater_first==NULL)
+    {
+
+    }
+    else
+    {
+        lesser_last->next = greater_first;
+        greater_first->previous = lesser_last;
+        lesser->last = greater->last;
+    }
+    return lesser;
+}
+
+
+List *quick_sort(List *list)
+{
+    int count = List_Node_count(list);
+    if(count==1 || count==0)
+    {
+        return list;
+    }
+    List *lesser = List_create();
+    List *greater = List_create();
+    Node *pivot = list->first;
+    Node *current = pivot->next;
+    Node *to_push;
+    while(current!=NULL)
+    {
+        to_push = current;
+        current = current->next;
+        to_push->previous = NULL;
+        to_push->next = NULL;
+        if(to_push->data<pivot->data)
+        {
+            List_push(lesser, to_push);
+        }
+        else
+        {
+            List_push(greater, to_push);
+        }
+    }
+    pivot->next = NULL;
+    pivot->previous = NULL;
+    return concatenate(quick_sort(lesser), pivot, quick_sort(greater));
+}
+
 int main(int argc, char *argv[])
 {
-    List *list = List_create();
+    /*List *list = List_create();
     push(list, 5);
     push(list, 1);
     push(list, 1);
     push(list, 2);
     push(list, 0);
 
-    bubble_sort(list);
+    bubble_sort(list);*/
+
+    List *list = List_create();
+    push(list, 2);
+    push(list, 1);
+    push(list, 5);
+    push(list, 0);
+    push(list, 1);
+    push(list, 99);
+    push(list, -7);
+    printf("Unsorted list\n");
+    List_print(list);
+
+    printf("Sorted list\n");
+    List *sorted = quick_sort(list);
+    List_print(sorted);
+
+    quick_sort(list);
     return 0;
 }
