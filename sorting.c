@@ -211,6 +211,71 @@ List *quick_sort(List *list)
     return concatenate(quick_sort(lesser), pivot, quick_sort(greater));
 }
 
+int binarySearchCount(List *list)
+{
+    int i = 1;
+    Node *current = list->first;
+    if(current==NULL)
+    {
+        return 0;
+    }
+    while(current!=list->last)
+    {
+        i++;
+        current = current->next;
+    }
+    return i;
+}
+int binarySearch(List *list, int value)
+{
+    //Returns 1 if the value is found in list
+    //Todo:Will change the implementation to return index of the found value
+    //-1 signifies value not found in list
+    int count = binarySearchCount(list);
+    Node *first;
+    if(count==0)
+    {
+        return -1;
+    }
+    else if(count==1)
+    {
+        first = list->first;
+        if(first->data==value)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    Node *mid;
+    int mid_index = count/2;
+    first = list->first;
+    mid = first;
+    int i;
+    for(i=0; i<mid_index; i++)
+    {
+        mid = mid->next;
+    }
+    if(mid->data == value)
+    {
+        return 1;
+    }
+    List *new_list = List_create();
+    if(mid->data < value)
+    {
+        new_list->first = mid->next;
+        new_list->last = list->last;
+    }
+    else
+    {
+        new_list->first = list->first;
+        new_list->last = mid->previous;
+    }
+    return binarySearch(new_list, value);
+}
+
 int main(int argc, char *argv[])
 {
     /*List *list = List_create();
@@ -222,7 +287,7 @@ int main(int argc, char *argv[])
 
     bubble_sort(list);*/
 
-    List *list = List_create();
+    /*List *list = List_create();
     push(list, 2);
     push(list, 1);
     push(list, 5);
@@ -237,6 +302,46 @@ int main(int argc, char *argv[])
     List *sorted = quick_sort(list);
     List_print(sorted);
 
-    quick_sort(list);
+    quick_sort(list);*/
+    List *list = List_create();
+    push(list, 5);
+    push(list, 7);
+    push(list, 9);
+    push(list, 15);
+    push(list, 20);
+
+    int num;
+    num = 20;
+    int i = binarySearch(list, num);
+    if(i==1)
+    {
+        printf("%d found in list.\n", num);
+    }
+    else
+    {
+        printf("%d not found in list.\n", num);
+    }
+
+    num = 5;
+    i = binarySearch(list, num);
+    if(i==1)
+    {
+        printf("%d found in list.\n", num);
+    }
+    else
+    {
+        printf("%d not found in list.\n", num);
+    }
+
+    num = 6;
+    i = binarySearch(list, num);
+    if(i==1)
+    {
+        printf("%d found in list.\n", num);
+    }
+    else
+    {
+        printf("%d not found in list.\n", num);
+    }
     return 0;
 }
