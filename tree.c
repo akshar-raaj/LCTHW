@@ -139,6 +139,10 @@ int main(int argc, char *argv[])
     Node *node131 = Node_create(131);
     Tree_add_child(node13, node131);
 
+    printf("Print entire tree\n");
     Tree_print(node1);
+
+    printf("Print a subtree\n");
+    Tree_print(node13);
     return 0;
 }
