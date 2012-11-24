@@ -120,6 +120,39 @@ void Tree_print(Node *node)
     }
 }
 
+int Tree_search(Node *node, int value)
+{
+    //Search a given item in the
+    //subtree starting from the node
+    //provided as argument
+    if(node->value==value)
+    {
+        return 1;
+    }
+
+    List *list = node->list;
+
+    //Is it a leaf node?
+    if(list==NULL)
+    {
+        return -1;
+    }
+    else
+    {
+        Node *current = list->first;
+        while(current!=NULL)
+        {
+            int found = Tree_search(current, value);
+            if (found==1)
+            {
+                return 1;
+            }
+            current = current->next;
+        }
+        return -1;
+    }
+}
+
 int main(int argc, char *argv[])
 {
     Node *node1 = Tree_add_root(1);
@@ -139,10 +172,33 @@ int main(int argc, char *argv[])
     Node *node131 = Node_create(131);
     Tree_add_child(node13, node131);
 
-    printf("Print entire tree\n");
+    /*printf("Print entire tree\n");
     Tree_print(node1);
 
     printf("Print a subtree\n");
-    Tree_print(node13);
+    Tree_print(node13);*/
+
+    int find = 131;
+    int found = Tree_search(node1, find);
+    if(found==1)
+    {
+        printf("%d found\n", find);
+    }
+    else
+    {
+        printf("%d not found\n", find);
+    }
+
+    find = 1311;
+    found = Tree_search(node1, find);
+    if(found==1)
+    {
+        printf("%d found\n", find);
+    }
+    else
+    {
+        printf("%d not found\n", find);
+    }
+
     return 0;
 }
