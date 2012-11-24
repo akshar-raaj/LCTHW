@@ -153,6 +153,20 @@ Node *Tree_search(Node *node, int value)
     }
 }
 
+void Tree_add_somewhere(Node *node, int add_to, int value)
+{
+    Node *parent = Tree_search(node, add_to);
+    if(parent==NULL)
+    {
+        printf("Position you specified for adding does not exist.\n");
+    }
+    else
+    {
+        Node *child = Node_create(value);
+        Tree_add_child(parent, child); 
+    }
+}
+
 int main(int argc, char *argv[])
 {
     Node *node1 = Tree_add_root(1);
@@ -178,7 +192,7 @@ int main(int argc, char *argv[])
     printf("Print a subtree\n");
     Tree_print(node13);*/
 
-    int find = 131;
+    /*int find = 131;
     Node *found = Tree_search(node1, find);
     if(found!=NULL)
     {
@@ -198,7 +212,15 @@ int main(int argc, char *argv[])
     else
     {
         printf("%d not found\n", find);
-    }
+    }*/
+
+    printf("Tree before adding at a position.\n");
+    Tree_print(node1);
+
+    Tree_add_somewhere(node1, 12, 121);
+
+    printf("Tree after adding at a position.\n");
+    Tree_print(node1);
 
     return 0;
 }
