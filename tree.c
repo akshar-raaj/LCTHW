@@ -198,16 +198,6 @@ Node *Tree_find_parent(Node *node, int value)
     return NULL;
 }
 
-Node *find_parent(Node *node, int value)
-{
-    if(node->value==value)
-    {
-        return NULL;
-    }
-    Node *found = Tree_find_parent(node, value);
-    return found;
-}
-
 int main(int argc, char *argv[])
 {
     Node *node1 = Tree_add_root(1);
@@ -272,8 +262,8 @@ int main(int argc, char *argv[])
     printf("Print tree\n");
     Tree_print(node1);
 
-    int find = 1111;
-    Node *found = find_parent(node1, find);
+    int find = 131;
+    Node *found = Tree_find_parent(node1, find);
     if(found==NULL)
     {
         printf("No parent found\n");
