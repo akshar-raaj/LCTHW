@@ -19,7 +19,11 @@ int main(int argc, char *argv[])
     char nul_byte = '\0';
     int care_percentage = bugs * nul_byte;
     printf("Which means you should care %d%%.\n", care_percentage);
+    
+    printf("Integer value of nul_byte is %d\n", nul_byte);
 
+    char some_var = 'a';
+    printf("Integer value of some_var is %d\n", some_var);
     return 0;
 
 }
