@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     }
 
     printf("state 0 %s\n", *states);
+    printf("state 0 %s\n", states[0]);
     printf("Second character of Bihar is %c\n", *(states[0]+1));
     printf("state 1 %s\n", *(states+1));
 

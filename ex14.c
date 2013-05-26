@@ -33,5 +33,16 @@ int can_print_it(char ch)
 int main(int argc, char *argv[])
 {
     print_arguments(argc, argv);
+
+    char some[] = "some";
+    char *some_ptr = &some[0];
+    printf("first character %c\n", some[0]);
+    printf("first character %c\n", *some_ptr);
+    printf("second character %c\n", some[1]);
+    printf("second character %c\n", *(some_ptr+1));
+    printf("second character %c\n", *(some+1));
+
+    printf("string is %s\n", some_ptr);
+    printf("string is %s\n", some);
     return 0;
 }
