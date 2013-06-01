@@ -5,7 +5,7 @@ Contains exercises provided in LCTHW by Zed Shaw.
 
 Apart from the exercises provided in the book:
 
-* It helped me understand pointers and contains various programs for understandiung pointers.
+* It helped me understand pointers and contains various programs for understanding pointers.
 
 Playing with lists
 ------------------------
@@ -23,3 +23,8 @@ File is tree.c
 * Add child on any node.
 * Search a particular node.
 * Find parent for a particular value in the tree/subtree.
+
+The C Programming Language
+--------------------------
+
+Programs and exercises of C Programming Language are contained in directory TCPL.
