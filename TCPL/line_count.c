@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 main(){
+    //Count the number of lines.
     int lc = 0;
     int c;
 

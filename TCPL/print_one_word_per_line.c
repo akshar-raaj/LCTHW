@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 main(){
+    //Prints one word per line.
     int c;
     int word_ends = 0;
 
